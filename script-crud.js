@@ -3,8 +3,8 @@ const formularioAdicionarTarefa = document.querySelector(".app__form-add-task");
 const inputTexto = document.querySelector(".app__form-textarea");
 const containerLista = document.querySelector(".app__section-task-list");
 const tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
-
-
+const tarefaQueEstaSendoExecutada = document.querySelector(".app__section-active-task-description");
+let liTarefaSelecionada = null;
 function atualizarTarefa() {
     localStorage.setItem("tarefas", JSON.stringify(tarefas));
 
@@ -48,6 +48,24 @@ function criarElementoTarefa(tarefa) {
     li.append(svg);
     li.append(paragrafo);
     li.append(botao);
+
+    li.onclick = () => {
+        const todosLi = document.querySelectorAll(".app__section-task-list-item");
+        todosLi.forEach(outroLi => {if (outroLi !== li) {
+            outroLi.classList.remove("app__section-task-list-item-active")
+        }
+        });
+        
+        if (li.classList.contains("app__section-task-list-item-active")) {
+            tarefaQueEstaSendoExecutada.textContent = "";
+            li.classList.remove("app__section-task-list-item-active");
+            liTarefaSelecionada = null;
+        } else {
+            tarefaQueEstaSendoExecutada.textContent = tarefa.descricao;
+            li.classList.add("app__section-task-list-item-active");
+        }
+        liTarefaSelecionada = li;
+    }
     return li;
 }
 
@@ -79,3 +97,11 @@ formularioAdicionarTarefa.addEventListener("submit", (evento) => {
         inputTexto.value = "";
         formularioAdicionarTarefa.classList.add("hidden");
     })
+
+    document.addEventListener("FocoFinalizado", () => {
+        if (liTarefaSelecionada) {
+            liTarefaSelecionada.classList.remove("app__section-task-list-item-active");
+            liTarefaSelecionada.classList.add("app__section-task-list-item-complete");
+            liTarefaSelecionada.querySelector("button").setAttribute("disabled", "disabled");
+        }
+    });
