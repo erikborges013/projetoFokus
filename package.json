@@ -1,0 +1,23 @@
+{
+  "name": "fokus-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script-crud.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alura-cursos/fokus-ts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alura-cursos/fokus-ts/issues"
+  },
+  "homepage": "https://github.com/alura-cursos/fokus-ts#readme",
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}
